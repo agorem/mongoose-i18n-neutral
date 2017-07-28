@@ -1,0 +1,33 @@
+{
+  "name": "mongoose-i18n-neutral",
+  "version": "1.0.0",
+  "description": "Mongoose schema plugin for i18n (language neutral)",
+  "main": "lib/mongoose-i18n-neutral.js",
+  "scripts": {
+    "test": "echo \"No tests available\" && exit 1"
+  },
+  "dependencies": {
+    "mongoose": "~4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/agorem/mongoose-i18n-neutral.git"
+  },
+  "keywords": [
+    "mongoose",
+    "i18n",
+    "l10n",
+    "internationalization",
+    "localization",
+    "language"
+  ],
+  "author": {
+    "name": "Antonio González Remírez",
+    "url": "https://github.com/agorem"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/agorem/mongoose-i18n-neutral/issues"
+  },
+  "homepage": "https://github.com/agorem/mongoose-i18n-neutral#readme"
+}

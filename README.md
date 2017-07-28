@@ -164,4 +164,3 @@ db.countries.aggregate({
 
 ```
 
-
