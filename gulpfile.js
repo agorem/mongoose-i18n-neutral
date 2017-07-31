@@ -16,9 +16,7 @@ gulp.task('build-zip',  function () {
   return gulp.src([
     './*.js',
     './*.md',
-    './*.json',
-    './LICENSE',
-    './tests/**'
+    './*.json'
   ], {base: '..'})
     .pipe(zip('mongoose-i18n-neutral-'+project.version+'.zip'))
     .pipe(gulp.dest('build/release'));
@@ -31,8 +29,7 @@ gulp.task('build-tar',  function () {
     './*.js',
     './*.md',
     './*.json',
-    './LICENSE',
-    './tests/**'
+    './LICENSE'
   ], {base: '..'})
     .pipe(tar('mongoose-i18n-neutral-'+project.version+'.tar'))
     .pipe(gzip())
