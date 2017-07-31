@@ -1,6 +1,5 @@
-# Logs
-logs
-*.log
+# Logs directory
+.logs
 
 # Runtime data
 pids
