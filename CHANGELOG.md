@@ -1,5 +1,9 @@
 ## mongoose-i18n-neutral changelog
 
+### 1.0.3
+
+- Readme.md documentation review
+
 ### 1.0.2
 
 - Npm package cleanup

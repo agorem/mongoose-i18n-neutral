@@ -13,21 +13,21 @@ $ npm install mongoose-i18n-neutral --save
 
 I18n modules usually requires to define a default language (if not uses english) as the base of translation process.
 
-This approach may be adequate in same projects, but it is not when we have to manage international text data written in their country/region language.
+This approach may be adequate for some projects, but it is not when we have to manage international data fields containing native language values or we would like to optimize the translation process (not all of default translations must use the same language).
 
-Geonames city names are a clear example of this problem.
+Geonames city name files are a clear example of the use native language.
 
 #### The approach
 
-Instead of using a default language, these plugin transforms then String schemas with the **i18n** option into an Object schema with the following properties:
+Instead of using a default language, this plugin transforms the String schemas with the **i18n** option into an Object schema with the following properties:
 * **_def**: Mandatory property to store the default translation (language agnostic)
 * **lang_code**: Additional properties for each language defined in the plugin configuration.  
  
 #### Plugin registration
 
 ```js
-var mongoose = require('mongoose');
-var mongooseI18nNeutral = require('mongoose-18n-neutral');
+const mongoose = require('mongoose');
+const mongooseI18nNeutral = require('mongoose-18n-neutral');
 ```
 
 To define the plugin as global, register the plugin in mongoose before any schema instantiation.
@@ -143,11 +143,11 @@ doc.name.en = 'Germany';
 //Set the spanish translation
 doc.name.es = 'Alemania'; 
 //Returns the default translation
-var defName = doc.name.default; 
+let defName = doc.name.default; 
 //Returns the spanish translation
-var esName = doc.name.es; 
+let esName = doc.name.es; 
 //Returns the name object with all translations 
-var translations = doc.name.all; 
+const translations = doc.name.all; 
 ```
 
 The Model and Document `getLanguages()` method returns the array of languages provided in the plugin configuration.
@@ -166,7 +166,12 @@ To provide the information available for a language, you can use a mongo query l
 db.countries.aggregate({
     $project: {
        _id: 1,
-       i18Name: {$ifNull: ["name.es","name._def"]}
+       i18Name: {
+        $ifNull: [
+            'name.es',
+            'name._def'
+            ]
+        }
     }
 })
 
