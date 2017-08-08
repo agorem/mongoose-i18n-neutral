@@ -1,6 +1,6 @@
 {
   "name": "mongoose-i18n-neutral",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Mongoose schema plugin for i18n (language neutral)",
   "main": "index.js",
   "scripts": {

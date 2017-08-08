@@ -1,5 +1,9 @@
 ## mongoose-i18n-neutral changelog
 
+### 1.0.6
+
+- .npmignore update
+
 ### 1.0.5
 
 - .npmignore update
