@@ -9,7 +9,7 @@ var expect = chai.expect;
 
 var DummyHelper = require('./helpers/DummyHelper');
 
-describe('Model and Document testing', function() {
+describe('Default usage', function() {
   it('Valid I18n model', function() {
     var testModel = DummyHelper.getI18nValidModel('demo-i18n-ok');
     expect(testModel.getLanguages()).to.deep.equal(langs);
@@ -29,9 +29,8 @@ describe('Model and Document testing', function() {
   });
   it('Invalid I18n model', function() {
     expect(function() {
-
       var model = DummyHelper.getI18nInvalidModel('demo-i18n-nok');
-    }).to.throw('Mongoose-i18n-neutral plugin applies only to Strings');
+    }).to.throw('mongoose-i18n-neutral plugin applies only to Strings');
   });
 
 });

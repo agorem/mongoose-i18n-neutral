@@ -1,5 +1,9 @@
 ## mongoose-i18n-neutral changelog
 
+### 1.1.0
+
+- New useDefault option to configure the usage of the default translation
+
 ### 1.0.6
 
 - .npmignore update

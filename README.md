@@ -20,7 +20,7 @@ Geonames city name files are a clear example of the use native language.
 #### The approach
 
 Instead of using a default language, this plugin transforms the String schemas with the **i18n** option into an Object schema with the following properties:
-* **_def**: Mandatory property to store the default translation (language agnostic)
+* **_def**: Property to store the default translation (language agnostic)
 * **lang_code**: Additional properties for each language defined in the plugin configuration.  
  
 #### Plugin registration
@@ -46,6 +46,8 @@ GeoCountrySchema.plugin(mongooseI18nNeutral,
 
 The plugin requires to define only one Array of strings parameter (**languages**) to define the alternative translations to store.
 
+Set **useDefault** option to **false**, if you don't want to implement the default translation field.   
+
 >Tip: It is strongly recommended to use [ISO639 language codes](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) to identify the languages, but it is not mandatory.
 
 #### I18n schema definition
@@ -55,7 +57,7 @@ An schema will be considered as i18n or multilanguage, if any of their String fi
 const GeoCountrySchema = new mongoose.Schema({
     iso3: {
       type: String,
-      required: true      
+      required: true     
     },
     name  : {
       type: String,
@@ -79,9 +81,9 @@ const GeoCountrySchema = new mongoose.Schema({
       required: true      
     },
     name  : {
-      _def: {
+      _def: {             // Only in default usage              
          type: String,
-         required: true
+         required: true 
          },
        en: {
          type: String,
@@ -101,7 +103,7 @@ const GeoCountrySchema = new mongoose.Schema({
        }                 
       },
     capital   : {
-      _def: {
+      _def: {             // Only in default usage
          type: String,
          required: true
          },
@@ -137,15 +139,15 @@ Each i18n field has available some additional virtual methods to deal with their
 const GeoCountry = mongoose.model('countries', GeoCountrySchema);
 const doc = new GeoCountry();
 //Default translation: Stores the value in name._def
-doc.name.default = 'Deutschland'; 
+doc.name.default = 'Deutschland';   // Only in default usage
 //Set the english translation
 doc.name.en = 'Germany'; 
 //Set the spanish translation
 doc.name.es = 'Alemania'; 
 //Returns the default translation
-let defName = doc.name.default; 
+const defName = doc.name.default;     // Only in default usage
 //Returns the spanish translation
-let esName = doc.name.es; 
+const esName = doc.name.es; 
 //Returns the name object with all translations 
 const translations = doc.name.all; 
 ```
