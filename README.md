@@ -27,7 +27,7 @@ Instead of using a default language, this plugin transforms the String schemas w
 
 ```js
 const mongoose = require('mongoose');
-const mongooseI18nNeutral = require('mongoose-18n-neutral');
+const mongooseI18nNeutral = require('mongoose-i18n-neutral');
 ```
 
 To define the plugin as global, register the plugin in mongoose before any schema instantiation.
