@@ -4,13 +4,18 @@ var mongoose = require('mongoose');
 var extend = require('util')._extend;
 
 var exports = function mongooseI18nNeutral(schema, options) {
-  if (!options || !options.languages || !Array.isArray(options.languages) || !options.languages.length) {
+  if (
+    !options ||
+    !options.languages ||
+    !Array.isArray(options.languages) ||
+    !options.languages.length
+  ) {
     throw new mongoose.Error('Required languages array not provided');
   }
 
-  if (typeof(options.useDefault) === 'undefined') {
+  if (typeof options.useDefault === 'undefined') {
     options.useDefault = true;
-  } else if (typeof(options.useDefault) !== 'boolean') {
+  } else if (typeof options.useDefault !== 'boolean') {
     throw new mongoose.Error('useDefault option value must be boolean');
   }
 
@@ -21,8 +26,7 @@ var exports = function mongooseI18nNeutral(schema, options) {
   pluginOptions.languages = options.languages.slice(0);
   pluginOptions.useDefault = options.useDefault;
 
-  schema.eachPath(function (path, schemaType) {
-
+  schema.eachPath(function(path, schemaType) {
     if (schemaType.schema) {
       schemaType.schema.plugin(mongooseI18nNeutral, pluginOptions);
       return;
@@ -33,7 +37,9 @@ var exports = function mongooseI18nNeutral(schema, options) {
     }
 
     if (!(schemaType instanceof mongoose.Schema.Types.String)) {
-      throw new mongoose.Error('mongoose-i18n-neutral plugin applies only to Strings');
+      throw new mongoose.Error(
+        'mongoose-i18n-neutral plugin applies only to Strings'
+      );
     }
 
     delete schemaType.options.i18n;
@@ -48,30 +54,30 @@ var exports = function mongooseI18nNeutral(schema, options) {
 
     // Remove original field schema
     schema.remove(path);
-    
+
     // Schema tree update (node removal)
-    var treeNode = fieldPath.reduce(function (parent, node) {
+    var treeNode = fieldPath.reduce(function(parent, node) {
       return parent[node];
     }, schema.tree);
 
     delete treeNode[fieldName];
 
     if (pluginOptions.useDefault) {
-      schema.virtual(path + '.default')
-        .get(function () {
-          var doc = (this.ownerDocument) ? this.ownerDocument() : this;
+      schema
+        .virtual(path + '.default')
+        .get(function() {
+          var doc = this.ownerDocument ? this.ownerDocument() : this;
           return doc.get(path + '.' + '_def');
         })
-        .set(function (value) {
-          var doc = (this.ownerDocument) ? this.ownerDocument() : this;
+        .set(function(value) {
+          var doc = this.ownerDocument ? this.ownerDocument() : this;
           doc.set(path + '.' + '_def', value);
         });
     }
 
-    schema.virtual(path + '.i18n')
-      .get(function () {
-        return this.getValue(path);
-      });
+    schema.virtual(path + '.i18n').get(function() {
+      return this.getValue(path);
+    });
 
     var schemaI18nObject = {};
     schemaI18nObject[fieldName] = {};
@@ -82,7 +88,7 @@ var exports = function mongooseI18nNeutral(schema, options) {
       schemaI18nObject[fieldName]['_def'] = i18nDefault;
     }
 
-    pluginOptions.languages.forEach(function (lang) {
+    pluginOptions.languages.forEach(function(lang) {
       var schemaI18nLang = extend({}, schemaType.options);
       schemaI18nLang.required = false;
       schemaI18nObject[fieldName][lang] = schemaI18nLang;
@@ -95,13 +101,13 @@ var exports = function mongooseI18nNeutral(schema, options) {
    * Model methods to get the languages available
    */
   schema.method({
-    getLanguages: function () {
+    getLanguages: function() {
       return this.schema.options.mongooseI18nNeutral.languages;
     }
   });
 
   schema.static({
-    getLanguages: function () {
+    getLanguages: function() {
       return this.schema.options.mongooseI18nNeutral.languages;
     }
   });
