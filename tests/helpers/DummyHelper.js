@@ -1,8 +1,8 @@
-const mongoose = require('mongoose');
+var mongoose = require('mongoose');
 
-const DummyHelper = {
-  getI18nValidModel(modelName) {
-    const schema = new mongoose.Schema({
+var DummyHelper = {
+  getI18nValidModel: function(modelName) {
+    var schema = new mongoose.Schema({
       name: {
         type: String,
         i18n: true
@@ -10,8 +10,8 @@ const DummyHelper = {
     });
     return mongoose.model(modelName, schema);
   },
-  getI18nInvalidModel(modelName) {
-    const schema = new mongoose.Schema({
+  getI18nInvalidModel: function(modelName) {
+    var schema = new mongoose.Schema({
       name: {
         type: Number,
         i18n: true
